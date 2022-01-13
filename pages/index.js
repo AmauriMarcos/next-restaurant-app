@@ -1,6 +1,7 @@
 import styles from '../styles/Home.module.css';
 import Head from 'next/head';
 import Image from 'next/image'
+import Featured from '../components/Featured';
 
 export default function Home() {
   return (
@@ -10,9 +11,8 @@ export default function Home() {
         <meta name='description' content='Delivery pizza app'/>
         <meta name="viewport" content="initial-scale=1.0, width=device-width" />
       </Head>
- 
-      <h1>TEST</h1>
-     
+      
+      <Featured/>
     </div>
   )
 }

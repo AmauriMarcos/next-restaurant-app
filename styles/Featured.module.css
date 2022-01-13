@@ -1,0 +1,12 @@
+.container{
+    height: calc(100vh - 100px);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: #fdd000;
+}
+
+.imgContainer{
+    width: 650px;
+    height: 500px;
+}
