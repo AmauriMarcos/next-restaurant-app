@@ -1,30 +1,48 @@
+import React from 'react';
 import styles from '../styles/Featured.module.css';
 import Image from 'next/image';
 
 const Featured = () => {
+    const [index, setIndex] = React.useState(0);
+
+    const handleArrow = (direction) => {
+        if(direction === 'L'){
+            setIndex(index !== 0 ? index -1 : 2)
+        }
+        
+        if(direction === 'R'){
+            setIndex(index !== 2 ? index + 1 : 0)
+        }
+    }
+
+    console.log(index);
 
     const images = [
-        "/img/featured.png",
         "/img/featured2.png",
+        "/img/featured.png",   
         "/img/featured3.png",
       ];
 
     return (
         <div className={styles.container}>
-             <div className={styles.arrowContainer}>
-                <Image src="/img/arrowl.png" alt="" width={50} height={50}/>
+             <div className={styles.arrowContainer}
+              onClick={() => handleArrow("L")}
+              style={{left: 0}}>
+                <Image src="/img/arrowl.png" alt="" layout='fill'/>
              </div>
             
-            <div className={styles.wrapper}>
+            <div className={styles.wrapper} style={{transform: `translateX(${-100 * index}vw)`}}>
                 {images.map((img, i) => (
                     <div className={styles.imgContainer} key={i}>
-                        <Image src="/img/featured2.png" alt="" layout="fill" objectFit="contain"/>  
+                        <Image src={img} alt="" layout="fill" objectFit="contain"/>  
                     </div>
                 ))}     
             </div>
 
-            <div className={styles.arrowContainer}>
-                <Image src="/img/arrowr.png" alt="" width={50} height={50}/>
+            <div className={styles.arrowContainer} 
+            onClick={() => handleArrow("R")}
+            style={{right: 0}}>
+                <Image src="/img/arrowr.png" alt="" layout='fill'/>
              </div>
         </div>
     )
