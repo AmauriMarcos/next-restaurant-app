@@ -4,23 +4,29 @@
     justify-content: center;
     align-items: center;
     width: 100%;
+    background-color: rgb(20, 20, 20);    
 }
 
 .wrapper{
     display: grid;
     width: 100%;
     padding: 1rem 3rem;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
     align-content: center;
     justify-items: center;
+    gap: 2rem;
 }
 
 .desc{
     font-size: 24px;
     width: 60%;
     text-align: center;
+    color: white;
+    margin: 2rem 0;
 }
 
 .title{
     margin-top: 3rem;
+    color: white;
+    text-transform: uppercase;
 }

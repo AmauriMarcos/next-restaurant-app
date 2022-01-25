@@ -3,49 +3,26 @@ import styles from '../styles/Featured.module.css';
 import Image from 'next/image';
 
 const Featured = () => {
-    const [index, setIndex] = React.useState(0);
-
-    const handleArrow = (direction) => {
-        if(direction === 'L'){
-            setIndex(index !== 0 ? index -1 : 2)
-        }
-        
-        if(direction === 'R'){
-            setIndex(index !== 2 ? index + 1 : 0)
-        }
-    }
-
-    console.log(index);
-
-    const images = [
-        "/img/featured2.png",
-        "/img/featured.png",   
-        "/img/featured3.png",
-      ];
 
     return (
         <div className={styles.container}>
-             <div className={styles.arrowContainer}
-              onClick={() => handleArrow("L")}
-              style={{left: 0}}>
-                <Image src="/img/arrowl.png" alt="" layout='fill'/>
-             </div>
-            
-            <div className={styles.wrapper} style={{transform: `translateX(${-100 * index}vw)`}}>
-                {images.map((img, i) => (
-                    <div className={styles.imgContainer} key={i}>
-                        <Image src={img} alt="" layout="fill" objectFit="contain"/>  
-                    </div>
-                ))}     
+            <div className={styles.bloc}>
+                <h4>Fresh</h4>
+                <h1 className={styles.title}>Bur</h1>
+                <p>Lorem ipsum dolor sit amet, <br></br> consectetur adipiscing elit.</p>
+                <button className={styles.button}>Delivery</button>
             </div>
 
-            <div className={styles.arrowContainer} 
-            onClick={() => handleArrow("R")}
-            style={{right: 0}}>
-                <Image src="/img/arrowr.png" alt="" layout='fill'/>
-             </div>
+            <div className={styles.imgBloc}>
+                <Image  src="/img/burger.png" alt="" layout='fill' objectFit='cover'/>
+            </div>
+            
+               
+            <div className={styles.bloc}>             
+                <h1 className={styles.title}>Ger</h1>
+            </div>
         </div>
     )
 }
 
-export default Featured
+export default Featured;

@@ -1,0 +1,66 @@
+.container{
+    height: calc(100vh - 100px);
+    padding: 0 3rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+.boxImg{
+    flex: 50%;
+    height: 80%;
+    width: 80%;
+    position: relative;
+}
+
+.content{
+    height: 80%;
+    flex: 50%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    padding: 0 2rem;
+}
+
+.titlePriceDesc{
+    height: 150px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+.titlePriceDesc h2{
+    font-size: 2rem; 
+}
+
+.titlePriceDesc h4{
+    font-size: 1.5rem;
+    color: #FFC42B;
+}
+
+.addIngredients{
+    display: flex;
+    flex-direction: column;
+    height: 120px;
+    justify-content: space-between;
+}
+
+.label{
+    margin-left: .5rem;
+}
+
+
+.add input{
+    width: 50px;
+    margin-top: .5rem;
+}
+
+.button{
+    border: none;
+    border-radius: 5px;
+    padding: .8rem 1.2rem;
+    background-color: #FFC42B;
+    font-size: 1.1rem;
+    font-weight: bold;
+    align-self: flex-start;
+}

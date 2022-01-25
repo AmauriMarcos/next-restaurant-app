@@ -1,13 +1,13 @@
 .container{
     padding: 0 50px;
     height: 100px;
-    background-color: #d1411e;
+    background-color: #0D0D0D;
     display: flex;
     align-items: center;
     justify-content: space-between;
     position: sticky;
     top: 0;
-    z-index: 10;
+    z-index: 15;
  
 }
 
@@ -21,6 +21,7 @@
 
 .item:nth-child(2){
     flex: 3;
+    width: 200px;
     display: flex;
     justify-content: center;
 }
