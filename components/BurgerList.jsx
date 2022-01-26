@@ -1,52 +1,19 @@
 import React from "react";
 import styles from "../styles/BurgerList.module.css";
 import BurgerCard from "./BurgerCard";
+import axios from 'axios';
+import useSWR from 'swr';
 
 const BurgerList = () => {
-  const burgers = [
-    {
-      id: 1,
-      url: "/img/burger1-transformed.png",
-      title: "FIORI DI ZUCCA",
-      price: "$19.90",
-      desc: "Lorem ipsum dolor sit amet consectetur adipisicing elit.",
-    },
-    {
-      id: 2,
-      url: "/img/burger2-transformed.png",
-      title: "FIORI DI ZUCCA",
-      price: "$19.90",
-      desc: "Lorem ipsum dolor sit amet consectetur adipisicing elit.",
-    },
-    {
-      id: 3,
-      url: "/img/burger.png",
-      title: "FIORI DI ZUCCA",
-      price: "$19.90",
-      desc: "Lorem ipsum dolor sit amet consectetur adipisicing elit.",
-    },
-    {
-      id: 4,
-      url: "/img/burger4-transformed.png",
-      title: "FIORI DI ZUCCA",
-      price: "$19.90",
-      desc: "Lorem ipsum dolor sit amet consectetur adipisicing elit.",
-    },
-    {
-      id: 5,
-      url: "/img/burger5-transformed.png",
-      title: "FIORI DI ZUCCA",
-      price: "$19.90",
-      desc: "Lorem ipsum dolor sit amet consectetur adipisicing elit.",
-    },
-    {
-      id: 6,
-      url: "/img/burger6-transformed.png",
-      title: "FIORI DI ZUCCA",
-      price: "$19.90",
-      desc: "Lorem ipsum dolor sit amet consectetur adipisicing elit.",
-    },
-  ];
+  
+  const fetcher = url => axios.get(url).then(res => res.data);
+  const { data, error } = useSWR('http://localhost:3000/api/getAllBurgers', fetcher, {
+    refreshInterval: 1000
+  });
+
+  if (error) return <div>failed to load</div>
+  if (!data) return <div>loading...</div>
+
   return (
     <div className={styles.container}>
       <h1 className={styles.title}>Our brutal selection!</h1>
@@ -56,7 +23,7 @@ const BurgerList = () => {
         sit amet, consectetur adipiscing elit.
       </p>
       <div className={styles.wrapper}>
-        {burgers.map((burger) => {
+        {data.map((burger) => {
           return (
             <BurgerCard
               key={burger.id}
@@ -64,7 +31,7 @@ const BurgerList = () => {
               img={burger.url}
               title={burger.title}
               price={burger.price}
-              desc={burger.desc}
+              desc={burger.burger_description}
             />
           );
         })}
@@ -72,5 +39,6 @@ const BurgerList = () => {
     </div>
   );
 };
+
 
 export default BurgerList;

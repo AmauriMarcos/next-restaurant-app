@@ -1,9 +1,12 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 import styles from "../../styles/BurgerSelected.module.css";
 import Image from "next/image";
+import axios from 'axios';
+import useSWR from 'swr';
 
 const Burger = () => {
+
   const [double, setDouble] = useState(false);
   const [sauce, setSauce] = useState(false);
   const [cheese, setCheese] = useState(false);
@@ -11,6 +14,18 @@ const Burger = () => {
 
   const router = useRouter();
   const { id } = router.query;
+
+  const fetcher = url => axios.get(url).then(res => res.data);
+  const { data, error } = useSWR(`http://localhost:3000/api/burger/${id}`, fetcher, {
+    refreshInterval: 1000
+  });
+
+
+  if (error) return <div>failed to load</div>
+  if (!data) return <div>loading...</div>
+
+  console.log(data);
+
   const burgerChoose = {
     id: 3,
     url: "/img/burger.png",
@@ -44,13 +59,13 @@ const Burger = () => {
   return (
     <div className={styles.container}>
       <div className={styles.boxImg}>
-        <Image src={burgerChoose.url} layout="fill" alt="" objectFit="cover" />
+        <Image src={data.url} layout="fill" alt="" objectFit="cover" />
       </div>
       <div className={styles.content}>
         <div className={styles.titlePriceDesc}>
-          <h2>{burgerChoose.title}</h2>
-          <h4>{burgerChoose.price}</h4>
-          <p>{burgerChoose.desc}</p>
+          <h2>{data.title}</h2>
+          <h4>{data.price}</h4>
+          <p>{data.burger_description}</p>
         </div>
         <div className={styles.addIngredients}>
           <h3>Choose additional ingredients </h3>
@@ -110,5 +125,6 @@ const Burger = () => {
     </div>
   );
 };
+
 
 export default Burger;
