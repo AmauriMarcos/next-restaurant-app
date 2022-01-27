@@ -14,6 +14,8 @@ const BurgerList = () => {
   if (error) return <div>failed to load</div>
   if (!data) return <div>loading...</div>
 
+  
+
   return (
     <div className={styles.container}>
       <h1 className={styles.title}>Our brutal selection!</h1>

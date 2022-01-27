@@ -24,36 +24,22 @@ const Burger = () => {
   if (error) return <div>failed to load</div>
   if (!data) return <div>loading...</div>
 
-  console.log(data);
-
-  const burgerChoose = {
-    id: 3,
-    url: "/img/burger.png",
-    title: "FIORI DI ZUCCA",
-    price: "$19.90",
-    desc: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
-  };
-
-  console.log(double, sauce, cheese);
 
   const handleProduct = (e) => {
     e.preventDefault();
 
     if (cheese) {
       setCheese(2.0);
+      data.price + cheese
     }
     if (sauce) {
       setSauce(1.5);
+      data.price + sauce
     }
     if (double) {
       setDouble(4.5);
+      data.price + double
     }
-
-    console.log(`Double ingredients: ${double}`);
-    console.log(`Extra sauce: ${sauce}`);
-    console.log(`Extra cheese: ${cheese}`);
-    console.log(`QTD: ${quantity}`);
-
   };
 
   return (

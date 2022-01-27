@@ -7,9 +7,9 @@ const Featured = () => {
     return (
         <div className={styles.container}>
             <div className={styles.bloc}>
-                <h4>Fresh</h4>
+                <h4>The Zodiac</h4>
                 <h1 className={styles.title}>Bur</h1>
-                <p>Lorem ipsum dolor sit amet, <br></br> consectetur adipiscing elit.</p>
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. </p>
                 <button className={styles.button}>Delivery</button>
             </div>
 

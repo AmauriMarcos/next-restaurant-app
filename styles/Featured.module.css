@@ -24,12 +24,16 @@
 .bloc h4{
     text-transform: uppercase;
     font-size: 1.3rem;
-    transform: translateY(2rem);
+    transform: translateY(4rem);
 }
 
 .bloc p{
     font-weight: 500;
     margin-bottom: 2rem;
+    font-size: 1.1rem;
+    width: 450px;
+    line-height: 1.7rem;
+    color: rgb(39, 39, 39);
 }
 
 .bloc:first-child{
@@ -39,7 +43,7 @@
 
 .bloc:first-child h1{
     color: #FFC42B;
-    transform: translateX(-.5rem);
+    transform: translateX(-.5rem) translateY(2rem);
 }
 
 .bloc:last-child h1{
