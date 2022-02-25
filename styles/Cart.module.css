@@ -4,60 +4,13 @@
  
 }
 
-.cart{
-    flex: 70% ;
+.cartBox{
     display: flex;
-    padding: 1.5rem;
-    justify-content: space-between;
-    border: 1px solid rgb(197, 197, 197);
-    margin-right: 1.5rem;
     height: 100%;
-}
-
-.description h2{
-    margin-bottom: 1.5rem;
-    font-size: 1.2rem;
-}
-
-.blocText{
-    margin-bottom: .5rem;
-    display: flex;
+    flex-direction: column;
     width: 100%;
-}
-
-.blocText h4{
-    font-size: .95rem;
-}
-
-.blocText span{
-    margin-left: 1rem;
-    font-size: .9rem;
-    color: rgb(59, 59, 59);
-}
-
-.operationalBloc{
-    margin-top: 2rem;
-    width: 210px;
-    display: flex;
-    justify-content: space-between;
-}
-
-.operationalButton{
-    border: none;
-    border-radius: 3px;
-    text-transform: uppercase;
-    background-color: #cacaca;
-    font-weight: 600;
-    cursor: pointer;
-    outline: none;
-    font-size: .7rem;
-    padding: .6rem 1rem;
-    width: 100px;
-}
-
-.price{
-    font-size: 1.2rem;
-    color: #d83535;
+    border: 1px solid rgb(197, 197, 197);
+    margin-right: 2rem;
 }
 
 .summary{
@@ -67,10 +20,12 @@
     padding: 2.5rem;
     background-color: rgb(44, 44, 44);
     color: white;
+    height: 100%;
+    
 }
 
 .summary h2{
-    font-size: 1.3rem;
+    font-size: 1.1rem;
     text-transform: uppercase;
 }
 
@@ -83,6 +38,51 @@
 .extras{
     display: flex;
     justify-content: space-between;
+    width: 100%;
+
+}
+
+.summaryBurgerExtras{
+    margin: .5rem 0;
+}
+
+.summaryBurger{
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    flex-direction: column;
+}
+
+.titleAndQtd{
+    display: flex;
+}
+
+.burgerInfo{
+    display: flex;
+    justify-content: space-between;
+}
+
+.burgerInfo h4{
+    margin-right: .5rem;
+}
+
+.extraIngredients span{
+    font-size: .8rem;
+}
+
+.extrasInfo{
+    width: 100%;
+    flex-direction: column;
+    align-items: flex-start
+}
+
+.subtotal{
+    display: flex;
+    justify-content: space-between;
+}
+
+.subtotal h2{
+    margin-right: 2rem;
 }
 
 .extras span{
@@ -92,7 +92,7 @@
 }
 
 .totalPrice{
-    font-size: 1.3rem;
+    font-size: 1.1rem;
     font-weight: 600;
 }
 

@@ -63,4 +63,14 @@
     font-size: 1.1rem;
     font-weight: bold;
     align-self: flex-start;
+    cursor: pointer;
+}
+
+.button:hover{
+    background-color: #72d653;
+}
+
+.addMessage{
+    color:#38a117;
+    font-weight: 500;
 }

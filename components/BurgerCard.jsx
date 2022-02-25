@@ -3,6 +3,7 @@ import styles from "../styles/BurgerCard.module.css";
 import Link from "next/link";
 
 const BurgerCard = ({ id, img, title, price, desc }) => {
+  
   return (
     <Link href={`/burger/${id}`}>
       <div className={styles.container}>

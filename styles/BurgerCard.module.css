@@ -7,6 +7,9 @@
     justify-content: space-around;
     padding: 20px 40px;
     cursor: pointer; 
+    position: relative;
+    border-radius: 5px !important;
+ 
   }
   
   .title {

@@ -1,99 +1,84 @@
-import React, { useState, useEffect } from "react";
-import { useRouter } from "next/router";
+import React, { useState} from "react";
 import styles from "../../styles/BurgerSelected.module.css";
 import Image from "next/image";
+import {useDispatch} from 'react-redux';
+import { addProduct } from "../../redux/cartSlice";
 import axios from 'axios';
-import useSWR from 'swr';
 
-const Burger = () => {
 
-  const [double, setDouble] = useState(false);
-  const [sauce, setSauce] = useState(false);
-  const [cheese, setCheese] = useState(false);
+const Burger = ({burger}) => {
+
   const [quantity, setQuantity] = useState(1);
+  const [price, setPrice] = useState(burger.price);
+  const [extras, setExtras] = useState([]);
+  const [add, setAdd] = useState(null);
 
-  const router = useRouter();
-  const { id } = router.query;
+  const dispatch = useDispatch();
 
-  const fetcher = url => axios.get(url).then(res => res.data);
-  const { data, error } = useSWR(`http://localhost:3000/api/burger/${id}`, fetcher, {
-    refreshInterval: 1000
-  });
+  if (!burger) return <div>loading...</div>
 
+  const handleChange = (e, option) => {
+     const checked = e.target.checked;
 
-  if (error) return <div>failed to load</div>
-  if (!data) return <div>loading...</div>
+     if(checked){
+       setPrice(prevPrice => prevPrice + option.price)
+       setExtras(prevExtras => [...prevExtras, option]);
 
-
-  const handleProduct = (e) => {
-    e.preventDefault();
-
-    if (cheese) {
-      setCheese(2.0);
-      data.price + cheese
-    }
-    if (sauce) {
-      setSauce(1.5);
-      data.price + sauce
-    }
-    if (double) {
-      setDouble(4.5);
-      data.price + double
-    }
+     }else{
+       setPrice(prevPrice => prevPrice - option.price);
+       setExtras(extras.filter((extra) => extra._id !== option._id))
+     }
   };
+
+  const product = {
+    id: burger._id,
+    title: burger.title,
+    img: burger.img,
+    unitPrice: burger.price,
+    extraIngredients: extras,
+    burgerPrice: price,
+    burgerQtd: +quantity,
+    burgerTotal: price * +quantity
+  }
+
+  const addToTheCart = (e) =>{
+    e.preventDefault();
+    dispatch(addProduct(product));
+    setAdd(true);
+  }
+
 
   return (
     <div className={styles.container}>
       <div className={styles.boxImg}>
-        <Image src={data.url} layout="fill" alt="" objectFit="cover" />
+        <Image src={burger.img} layout="fill" alt="" objectFit="cover" />
       </div>
       <div className={styles.content}>
         <div className={styles.titlePriceDesc}>
-          <h2>{data.title}</h2>
-          <h4>{data.price}</h4>
-          <p>{data.burger_description}</p>
+          <h2>{burger.title}</h2>
+          <h4>${price.toFixed(2)}</h4>
+          <p>{burger.desc}</p>
         </div>
         <div className={styles.addIngredients}>
-          <h3>Choose additional ingredients </h3>
-          <div className={styles.option}>
+          <h3 style={{"marginBottom": "1.5rem"}}>Choose additional ingredients </h3>
+          {burger.extraOptions.map((option) =>{
+    
+            return (
+            <div className={styles.option} key={option._id}> 
             <input
               type="checkbox"
               id="double"
-              name="double"
+              name={option.text}
               className={styles.checkbox}
-              onChange={(e) => setDouble(e.target.checked)}
-              value="4.50"
+              onChange={(e) => handleChange(e, option)}
+              
             />
             <label className={styles.label} htmlFor="double">
-              Double Ingredients ($4.50)
+              {option.text}
             </label>
-          </div>
-          <div className={styles.option}>
-            <input
-              type="checkbox"
-              id="sauce"
-              name="sauce"
-              className={styles.checkbox}
-              onChange={(e) => setSauce(e.target.checked)}
-              value="1.50"
-            />
-            <label className={styles.label} htmlFor="sauce">
-              Extra Sauce ($1.00)
-            </label>
-          </div>
-          <div className={styles.option}>
-            <input
-              type="checkbox"
-              id="cheese"
-              name="cheese"
-              checked={cheese}
-              className={styles.checkbox}
-              onChange={(e) => setCheese(e.target.checked)}
-            />
-            <label className={styles.label} htmlFor="cheese">
-              Extra Cheese ($2.00)
-            </label>
-          </div>
+          </div>)
+          })}          
+         
         </div>
         <div className={styles.add}>
           <h4>QTD</h4>
@@ -104,13 +89,24 @@ const Burger = () => {
             value={quantity}
           />
         </div>
-        <button className={styles.button} onClick={handleProduct}>
-          Add to cart
-        </button>
+     
+          <button className={styles.button} onClick={addToTheCart}>
+            Add to cart
+          </button>
+          {add && <p className={styles.addMessage}>{burger.title} burger has been added to your cart !</p>}
       </div>
     </div>
   );
 };
 
+export const getServerSideProps = async({params}) => {
+
+  const res = await axios.get(`http://localhost:3000/api/products/${params.id}`);
+  return{
+    props: {
+      burger: res.data
+    }
+  }
+}
 
 export default Burger;

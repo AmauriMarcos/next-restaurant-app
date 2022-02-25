@@ -2,19 +2,17 @@ import React from "react";
 import styles from "../styles/BurgerList.module.css";
 import BurgerCard from "./BurgerCard";
 import axios from 'axios';
-import useSWR from 'swr';
+/* import useSWR from 'swr'; */
 
-const BurgerList = () => {
+const BurgerList = ({data}) => {
   
-  const fetcher = url => axios.get(url).then(res => res.data);
-  const { data, error } = useSWR('http://localhost:3000/api/getAllBurgers', fetcher, {
+/*   const fetcher = url => axios.get(url).then(res => res.data);
+  const { data, error } = useSWR('http://localhost:3000/api/products', fetcher, {
     refreshInterval: 1000
-  });
+  }); */
 
-  if (error) return <div>failed to load</div>
   if (!data) return <div>loading...</div>
 
-  
 
   return (
     <div className={styles.container}>
@@ -26,14 +24,15 @@ const BurgerList = () => {
       </p>
       <div className={styles.wrapper}>
         {data.map((burger) => {
+          
           return (
             <BurgerCard
-              key={burger.id}
-              id={burger.id}
-              img={burger.url}
+              key={burger._id}
+              id={burger._id}
+              img={burger.img}
               title={burger.title}
               price={burger.price}
-              desc={burger.burger_description}
+              desc={burger.desc}
             />
           );
         })}
