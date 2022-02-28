@@ -95,9 +95,15 @@
     border: none;
     border-radius: 3px;
     text-transform: uppercase;
-    background-color: #FFC42B;
+    background-color: #ffffff;
+    color: black;
     font-weight: 600;
     cursor: pointer;
     outline: none;
     padding: .9rem 1rem;
+}
+
+
+.paypal{
+    margin-top: 1rem;
 }

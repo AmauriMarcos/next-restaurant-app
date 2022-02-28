@@ -5,12 +5,16 @@ import CartProduct from "../components/CartProduct";
 import { useSelector } from "react-redux";
 import Summary from "../components/Summary";
 import {useRouter} from 'next/router';
+import { useEffect } from "react";
+
+
 
 const Cart = () => {
   const state = useSelector((state) => state.cart);
   const { products, total } = state;
 
- const router = useRouter();
+
+  const router = useRouter();
 
   return (
     <div className={styles.container}>

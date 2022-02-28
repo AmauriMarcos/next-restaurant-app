@@ -6,7 +6,7 @@ import BurgerList from '../components/BurgerList';
 import axios from 'axios';
 
 export default function Home({burgerData}) {
-console.log(burgerData)
+
   return (
     <div className={styles.container}>
       <Head>
@@ -17,9 +17,8 @@ console.log(burgerData)
       </Head>
       
       <Featured/>
+     
       <BurgerList data={burgerData}/>
-
-
     </div>
   )
 }
