@@ -1,7 +1,9 @@
-import React from "react";
+import React, { useState } from "react";
 import styles from "../../styles/Order.module.css";
 import Image from "next/image";
 import Summary from "../../components/Summary";
+import axios from "axios";
+import { useRouter } from "next/router";
 import { useSelector } from "react-redux";
 import {
   FaRegCreditCard,
@@ -14,16 +16,19 @@ import {
   FaChild,
 } from "react-icons/fa";
 
-const Order = () => {
+const Order = ({ orders }) => {
   const { products, total } = useSelector((state) => state.cart);
 
   const status = 0;
-
   const statusClass = (index) => {
     if (index - status < 1) return styles.done;
     if (index - status === 1) return styles.inProgress;
     if (index - status > 1) return styles.undone;
   };
+
+  let latestBurger = orders[orders.length - 1];
+  console.log(latestBurger);
+  console.log(latestBurger.products);
 
   return (
     <div className={styles.container}>
@@ -31,31 +36,35 @@ const Order = () => {
         <div className={styles.generalInfo}>
           <div className={styles.bloc}>
             <h2>Order ID</h2>
-            <p>9039283092</p>
+            <p>{latestBurger._id}</p>
           </div>
           <div className={styles.bloc}>
             <h2>Customer</h2>
-            <p>Bryan Scott</p>
+            <p>{latestBurger.customer}</p>
           </div>
           <div className={styles.bloc}>
             <h2>Address</h2>
-            <p>Milton st. 493-232 TU</p>
+            <p>{latestBurger.address}</p>
           </div>
           <div className={styles.bloc}>
             <h2>Total</h2>
-            <p>${total.toFixed(2)}</p>
+            <p>${latestBurger.total.toFixed(2)}</p>
           </div>
         </div>
         <div className={styles.stepProgressBar}>
           <div className={styles.row}>
-            <div className={`${styles.paymentBloc} ${statusClass(0)}`}>
+            <div
+              className={`${styles.paymentBloc}  ${statusClass(
+                orders[0].status
+              )}`}
+            >
               <FaRegCreditCard size={28} />
               <span>Payment</span>
               <div className={styles.checkedIcon}>
                 <FaCheckCircle size={23} className={styles.checkedIcon} />
               </div>
             </div>
-            <div className={`${styles.paymentBloc} ${statusClass(1)}`}>
+            <div className={`${styles.paymentBloc}  ${statusClass(1)}`}>
               <FaHamburger size={28} />
               <span>Preparing</span>
               <div className={styles.checkedIcon}>
@@ -79,11 +88,75 @@ const Order = () => {
           </div>
         </div>
       </div>
+
       <div className={styles.right}>
-        <Summary products={products} total={total} />
+        <div className={`${styles.summary} ${styles.paid} `}>
+          <h2>Summary</h2>
+          <hr className={styles.line}></hr>
+          <div className={styles.info}>
+            {latestBurger.products.map((product) => {
+              return (
+                <div className={styles.summaryBurgerExtras}>
+                  <div className={styles.burgerInfo}>
+                    <div className={styles.titleAndQtd}>
+                      <h4>{product.qtd}x</h4>
+                      <div>
+                        <h3>{product.title}</h3>
+                        {product.extraOptions.map((extra) => {
+                           return extra.text.map((t) => {
+                              return <span>{t}<br></br></span>
+                            })
+                        })}
+                      </div>
+                    </div>
+
+                    <div>
+                      <span>${product.price.toFixed(2)}</span>
+                    </div>
+                  </div>
+                </div>
+              );
+            })}
+            <hr className={styles.line}></hr>
+            <div className={styles.extras}>
+              <h3>Subtotal:</h3>
+              <span>${latestBurger.total.toFixed(2)}</span>
+            </div>
+          </div>
+          <hr className={styles.line}></hr>
+          <div className={styles.info}>
+            <div className={styles.extras}>
+              <h3>Discount:</h3>
+              <span>0.00</span>
+            </div>
+          </div>
+          <hr className={styles.line}></hr>
+          <div className={styles.info}>
+            <div className={styles.extras}>
+              <h2>Total</h2>
+              <span className={styles.totalPrice}>
+                ${latestBurger.total.toFixed(2)}
+              </span>
+            </div>
+          </div>
+          <hr className={styles.line}></hr>
+
+          <button className={`${styles.button} ${styles.paidButton}`}>
+            Paid
+          </button>
+        </div>
       </div>
     </div>
   );
 };
 
 export default Order;
+
+export const getServerSideProps = async () => {
+  const res = await axios.get("http://localhost:3000/api/orders");
+  return {
+    props: {
+      orders: res.data,
+    },
+  };
+};

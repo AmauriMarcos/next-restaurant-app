@@ -8,7 +8,7 @@ import axios from 'axios';
 export default function Home({burgerData}) {
 
   return (
-    <div className={styles.container}>
+    <div className={`${styles.container} ${styles.unableScrolling} `}>
       <Head>
         <title>Yummy Pizza</title>
         <meta name='description' content='Delivery pizza app'/>

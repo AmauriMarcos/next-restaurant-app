@@ -107,3 +107,15 @@
 .paypal{
     margin-top: 1rem;
 }
+
+.paid{
+    background-color: transparent;
+    border-radius: 5px ;
+    color: rgb(48, 48, 48);
+    border: 1px solid gray;
+}
+
+.paidButton{
+    background-color: rgb(44, 170, 44);
+    color: white;
+}
