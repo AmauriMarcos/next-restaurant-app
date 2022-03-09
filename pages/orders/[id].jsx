@@ -5,6 +5,7 @@ import Summary from "../../components/Summary";
 import axios from "axios";
 import { useRouter } from "next/router";
 import { useSelector } from "react-redux";
+
 import {
   FaRegCreditCard,
   FaCheckCircle,
@@ -18,17 +19,20 @@ import {
 
 const Order = ({ orders }) => {
   const { products, total } = useSelector((state) => state.cart);
-
+  const router = useRouter()
   const status = 0;
+  const { id } = router.query
+
   const statusClass = (index) => {
-    if (index - status < 1) return styles.done;
-    if (index - status === 1) return styles.inProgress;
-    if (index - status > 1) return styles.undone;
+    const currentOrder = orders.filter((order) => order._id === id)[0]
+    console.log(currentOrder)
+
+    if (index - currentOrder.status < 1) return styles.done;
+    if (index - currentOrder.status === 1) return styles.inProgress;
+    if (index - currentOrder.status  > 1) return styles.undone;
   };
 
   let latestBurger = orders[orders.length - 1];
-  console.log(latestBurger);
-  console.log(latestBurger.products);
 
   return (
     <div className={styles.container}>
@@ -55,7 +59,7 @@ const Order = ({ orders }) => {
           <div className={styles.row}>
             <div
               className={`${styles.paymentBloc}  ${statusClass(
-                orders[0].status
+                0
               )}`}
             >
               <FaRegCreditCard size={28} />

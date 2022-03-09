@@ -1,5 +1,7 @@
 import React, {useState} from "react";
 import styles from "../styles/OrderDetail.module.css";
+import { useDispatch } from "react-redux";
+import { reset } from "../redux/cartSlice";
 
 const OrderDetail = ({total, createOrder, products}) => {
   const [customer, setCustomer] = useState('');
@@ -12,6 +14,8 @@ const OrderDetail = ({total, createOrder, products}) => {
       phone,
       address
   }
+
+  const dispatch = useDispatch();
 
   const handleCashPayment = (e) =>{
       e.preventDefault();
@@ -32,7 +36,8 @@ const OrderDetail = ({total, createOrder, products}) => {
         return newProducts
       });
 
-      createOrder({...paymentData, total, method: 0, products: newProducts})
+      createOrder({...paymentData, total, method: 0, products: newProducts});
+      dispatch(reset());
   }
 
 
@@ -40,7 +45,7 @@ const OrderDetail = ({total, createOrder, products}) => {
     <div className={styles.container}>
      
       <form onSubmit={handleCashPayment}>
-        <h2>You will pay ${total} after delivery</h2>
+        <h2>You will pay ${total.toFixed(2)} after delivery</h2>
         <div className={styles.formBloc}>
           <label className={styles.label} htmlFor="customer">Name Surname</label>
           <input className={styles.input} onChange={(e) => setCustomer(e.target.value)} type="text" name="customer" />
